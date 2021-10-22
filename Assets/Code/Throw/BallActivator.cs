@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class BallActivator: MonoBehaviour
 {
+    [SerializeField] private float _spawnDelayInSenond = 3;
     [SerializeField] private float _leftAndRightTargetAngle;
     [SerializeField] private Transform[] _targets = new Transform[3];
     [SerializeField] private NewBall[] _balls;
@@ -29,7 +30,7 @@ public class BallActivator: MonoBehaviour
 
     private async void OnBallThrowed()
     {
-        await Task.Delay(3000);
+        await Task.Delay((int)(_spawnDelayInSenond * 1000));
         _currentBallIndex++;
         if (_currentBallIndex == _balls.Length)
             return;

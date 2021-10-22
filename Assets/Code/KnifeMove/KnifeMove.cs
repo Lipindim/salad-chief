@@ -6,6 +6,7 @@ using UnityEngine;
 public class KnifeMove : MonoBehaviour
 {
     private const float DELTA_POSTITION = 0.01f;
+    private const float SPEED_MULTIPLIER = 0.03f;
 
 
     [SerializeField] private Transform _knifeTransform;
@@ -36,13 +37,10 @@ public class KnifeMove : MonoBehaviour
     {
         if (!_isMoving)
             return;
-        //Считаем новую позицию
-        float x = (_speedList[_index].Position.x - _lastPosition.x) * _speed * Time.deltaTime + _knifeTransform.position.x;
-        float y = (_speedList[_index].Position.y - _lastPosition.y) * _speed * Time.deltaTime + _knifeTransform.position.y;
-        float z = (_speedList[_index].Position.z - _lastPosition.z) * _speed * Time.deltaTime + _knifeTransform.position.z;
 
-        //Двигаем объъект
-        _knifeTransform.position = new Vector3(x, y, z);
+        var newPosition = (_speedList[_index].Position - _lastPosition).normalized * _speed * SPEED_MULTIPLIER * Time.deltaTime + _knifeTransform.position;
+
+        _knifeTransform.position = newPosition;
 
         //Проверка на прибытие в точку
         if (Vector3.Distance(_knifeTransform.position, _speedList[_index].Position) < DELTA_POSTITION)

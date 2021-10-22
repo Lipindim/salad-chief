@@ -5,6 +5,8 @@ using UnityEngine.EventSystems;
 
 public class NewBall : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IDragHandler, IBeginDragHandler
 {
+    [SerializeField] private int _forcePower = 100000;
+
     public event Action Throwed;
 
     private float _xOffset;
@@ -60,14 +62,14 @@ public class NewBall : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, ID
         _target = GetTarget();
 
         var newPosition  = GetNewPosition(eventData.position);
-        var direction = (_target - newPosition).normalized + transform.up;
+        var direction = (_target - newPosition).normalized + transform.up * 2;
         var forcePower = (newPosition - _previousPosition).sqrMagnitude;
         if (forcePower < 0.0015)
             return;
         if (forcePower > 0.002f)
             forcePower = 0.002f;
         Debug.Log(forcePower);
-        _rigidBody.AddForce(direction * 100000 * forcePower);
+        _rigidBody.AddForce(direction * _forcePower * forcePower);
         _rigidBody.useGravity = true;
 
         _throwed = true;
