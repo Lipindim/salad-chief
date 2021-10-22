@@ -4,9 +4,9 @@ using UnityEngine;
 [Serializable]
 public class SpeedInterval
 {
-    public float Time => _time;
+    public Vector3 Position => _position;
     public float Speed => _speed;
 
     [SerializeField] private float _speed;
-    [SerializeField] private float _time;
+    [SerializeField] private Vector3 _position;
 }
