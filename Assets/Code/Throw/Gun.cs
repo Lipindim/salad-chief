@@ -8,6 +8,9 @@ public class Gun : MonoBehaviour
     [SerializeField] private Rigidbody[] _bullets;
     [SerializeField] private float _shotForce = 1.0f;
     [SerializeField] private int _reloadTimeInMiliseconds = 200;
+    [SerializeField] private float _upForceMultiplier = 2.5f;
+    [SerializeField] private Camera _aimCamera;
+    [SerializeField] private float _cameraMultiplier = 1.5f;
 
     private int _currentIndex = 0;
 
@@ -21,8 +24,9 @@ public class Gun : MonoBehaviour
         if (!Input.GetMouseButtonDown(0) || _currentIndex >= _bullets.Length)
             return;
 
-        var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        _bullets[_currentIndex].AddForce((ray.direction + Camera.main.transform.up * 2.5f) * _shotForce);
+        var relativeMousePosition = new Vector3(Input.mousePosition.x + (Input.mousePosition.x - Screen.width / 2) * _cameraMultiplier, Input.mousePosition.y, 0);
+        var ray = _aimCamera.ScreenPointToRay(relativeMousePosition);
+        _bullets[_currentIndex].AddForce((ray.direction + _aimCamera.transform.up * _upForceMultiplier) * _shotForce);
         _bullets[_currentIndex].useGravity = true;
         _currentIndex++;
         Reload();
