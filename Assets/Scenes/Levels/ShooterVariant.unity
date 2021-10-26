@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.40343267, g: 0.42427233, b: 0.42609283, a: 1}
+  m_IndirectSpecularColor: {r: 0.40343264, g: 0.4242723, b: 0.42609283, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -31558,6 +31558,9 @@ MonoBehaviour:
   - {fileID: 1490987546}
   _shotForce: 80
   _reloadTimeInMiliseconds: 200
+  _upForceMultiplier: 2.5
+  _aimCamera: {fileID: 1425889912}
+  _cameraMultiplier: 5
 --- !u!1 &1382003416
 GameObject:
   m_ObjectHideFlags: 0
